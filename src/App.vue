@@ -3,54 +3,59 @@
     <div class="row">
 
       <div class="col s12" style="text-align: center;">
-        <div class="card green lighten-4">
-          <div class="card-content">
-            <span class="card-title">
-              Click on a state
-            </span>
-            <br>
-            <svg
-              id="counties-svg"
-              v-on:click.stop="unselectState"
-              v-on:mouseover.stop="unhighlightState">
-              <g
-                v-for="state in states"
-                v-on:click.stop="selectState(state)"
-                v-on:mouseover.stop="highlightState(state)">
-                <g v-for="county in state.counties">
-                  <path
-                    class="county"
-                    :d="county.path"
-                    :fill="state === highlightedState ? '#4caf50' : '#ccc'" />
-                </g>
-              </g>
-            </svg>
-          </div>
-        </div>
+        <h4>
+          Click on a state
+        </h4>
+        <svg
+          id="counties-svg"
+          v-on:click.stop="unselectState"
+          v-on:mouseover.stop="unhighlightState"
+        >
+          <g
+            v-for="state in states"
+            v-on:click.stop="selectState(state)"
+            v-on:mouseover.stop="highlightState(state)"
+          >
+            <g v-for="county in state.counties">
+              <path
+                class="county"
+                :d="county.path"
+                :fill="state === highlightedState ? '#4caf50' : '#ccc'"
+              />
+            </g>
+          </g>
+        </svg>
       </div>
 
-      <template v-if="selectedState">
-        <div class="col s12" style="text-align: center;">
-          <div class="card green lighten-1">
-            <div class="card-content">
-              <h2>
-                {{ selectedState.name }}
-              </h2>
-              <br>
-              <svg id="selected-state-svg" :height="selectedStateSvgHeight">
-                <g :transform="selectedStateTransform">
-                  <g v-for="county in selectedState.counties">
-                    <path
-                      class="county"
-                      :d="county.path"
-                      fill="none" />
+      <transition
+        name="custom-classes-transition"
+        mode="out-in"
+        enter-active-class="animated fadeInUp"
+        leave-active-class="animated fadeOutDown"
+      >
+        <template v-if="selectedState">
+          <div class="col s12" style="text-align: center;">
+            <div class="card green lighten-3">
+              <div class="card-content">
+                <h2>
+                  {{ selectedState.name }}
+                </h2>
+                <svg id="selected-state-svg" :height="selectedStateSvgHeight">
+                  <g :transform="selectedStateTransform">
+                    <g v-for="county in selectedState.counties">
+                      <path
+                        class="county"
+                        :d="county.path"
+                        fill="none"
+                      />
+                    </g>
                   </g>
-                </g>
-              </svg>
+                </svg>
+              </div>
             </div>
           </div>
-        </div>
-      </template>
+        </template>
+      </transition>
 
     </div>
   </div>
