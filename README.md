@@ -2,6 +2,13 @@
 
 > Interactive election results map built with Vue, SVG, and GeoJSON
 
+## To-do
+
+-   Incorporate [election results data](https://www.kaggle.com/benhamner/2016-us-election)
+-   Enable election results inspection when clicking/hovering on state/county
+-   Fill states/counties with candidate colors, for high-level election summary
+-   Overlay bar charts for low-level state/county breakdown
+
 
 ## Build Setup
 
