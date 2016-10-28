@@ -41,13 +41,21 @@
                 <h2>
                   {{ selectedState.name }}
                 </h2>
-                <svg id="selected-state-svg" :height="selectedStateSvgHeight">
+                <h4>
+                  {{ highlightedCounty ? highlightedCounty.name : '&nbsp;' }}
+                </h4>
+                <svg
+                  id="selected-state-svg"
+                  :height="selectedStateSvgHeight"
+                  v-on:mouseover.stop="unhighlightCounty"
+                >
                   <g :transform="selectedStateTransform">
                     <g v-for="county in selectedState.counties">
                       <path
                         class="county"
                         :d="county.path"
-                        fill="none"
+                        :fill="county === highlightedCounty ? '#4caf50' : '#a5d6a7'"
+                        v-on:mouseover.stop="highlightCounty(county)"
                       />
                     </g>
                   </g>
@@ -134,6 +142,7 @@ export default {
   name: 'app',
   data () {
     return {
+      highlightedCounty: null,
       highlightedState: null,
       selectedState: null,
       selectedStateSvgHeight: null,
@@ -169,11 +178,18 @@ export default {
     }
   },
   methods: {
+    highlightCounty (county) {
+      this.highlightedCounty = county
+    },
     highlightState (state) {
       this.highlightedState = state
     },
     selectState (state) {
       this.selectedState = state
+      this.unhighlightCounty()
+    },
+    unhighlightCounty () {
+      this.highlightedCounty = null
     },
     unhighlightState () {
       this.highlightedState = null
