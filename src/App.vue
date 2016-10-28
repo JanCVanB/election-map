@@ -21,7 +21,7 @@
               <path
                 class="county"
                 :d="county.path"
-                :fill="state === highlightedState ? '#4caf50' : '#ccc'"
+                :fill="state === highlightedState ? '#66bb6a' : '#ccc'"
               />
             </g>
           </g>
