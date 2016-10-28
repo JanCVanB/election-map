@@ -1,4 +1,5 @@
 <template>
+
   <div id="app" class="container">
     <div class="row">
 
@@ -59,9 +60,11 @@
 
     </div>
   </div>
+
 </template>
 
 <script>
+
 const _ = require('underscore')
 const counties = require('./data/counties.json').counties
 const countiesByState = _.groupBy(counties, county => county.stateId)
@@ -186,9 +189,11 @@ export default {
     })
   }
 }
+
 </script>
 
 <style>
+
 #counties-svg {
   height: 500px;
   width: 800px;
@@ -202,4 +207,5 @@ export default {
   stroke: white;
   stroke-width: 0.5;
 }
+
 </style>
