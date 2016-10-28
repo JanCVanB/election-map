@@ -153,15 +153,16 @@ export default {
       const top = _.min(yCoordinates)
       const width = _.max(xCoordinates) - _.min(xCoordinates)
       const height = _.max(yCoordinates) - _.min(yCoordinates)
-      const center_x = (_.min(xCoordinates) + _.max(xCoordinates)) / 2
-      const center_y = (_.min(yCoordinates) + _.max(yCoordinates)) / 2
-      const scale_x = 800 / width
-      const scale_y = scale_x
-      const translate_x = -left
-      const translate_y = -top
-      this.selectedStateSvgHeight = height * scale_y
-      console.log(height * scale_y);
-      return `scale(${scale_x}, ${scale_y}) translate(${translate_x}, ${translate_y})`
+      const svgWidthAndHeight = 800
+      const padding = 50
+      const maxWidthOrHeight = svgWidthAndHeight - 2 * padding
+      const scale = maxWidthOrHeight / Math.max(height, width)
+      const xPadding = (svgWidthAndHeight - scale * width) / 2
+      const yPadding = padding
+      const translateX = -left + xPadding / scale
+      const translateY = -top + yPadding / scale
+      this.selectedStateSvgHeight = height * scale + yPadding * 2
+      return `scale(${scale}, ${scale}) translate(${translateX}, ${translateY})`
     }
   },
   methods: {
